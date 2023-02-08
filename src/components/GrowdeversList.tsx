@@ -12,7 +12,7 @@ import { Growdever } from "../models/growdever.model";
 import { GrowdeverForm } from "./GrowdevForm";
 
 export const GrowdeversList = () => {
-    let growdevers = useSelector((state: any) => state.growdevers);
+    const [growdevers, setGrowdevers] = useState([]);
 
     const [modalOpen, setModalOpen] = useState(false);
     const [modalCpf, setModalCpf] = useState<string>("");

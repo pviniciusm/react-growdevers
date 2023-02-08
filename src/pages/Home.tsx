@@ -1,10 +1,6 @@
 import { GrowdeversList } from "../components/GrowdeversList";
 import { useDispatch, useSelector } from "react-redux";
 import Divider from "@mui/material/Divider";
-import {
-    createGrowdever,
-    fetchGrowdevers,
-} from "../store/modules/growdevers/growdeversSlice";
 import { Loading } from "../components/Loading";
 import Box from "@mui/material/Box";
 import { useEffect } from "react";
@@ -15,12 +11,13 @@ export const Home = () => {
     const dispatch = useDispatch<any>();
     const loading = useSelector<any>((state) => state.loading);
 
-    useEffect(() => {
-        dispatch(fetchGrowdevers());
-    }, []);
+    // useEffect(() => {
+    //     dispatch(fetchGrowdevers());
+    // }, []);
 
     const handleCriar = () => {
-        dispatch(createGrowdever());
+        // dispatch(createGrowdever());
+        console.log("Criar um growdever");
     };
 
     return (
@@ -46,9 +43,6 @@ export const Home = () => {
             <br />
 
             <Button onClick={() => handleCriar()}>Criar Growdever</Button>
-
-            {/* <Link to={"/create"}> */}
-            {/* </Link> */}
         </div>
     );
 };
