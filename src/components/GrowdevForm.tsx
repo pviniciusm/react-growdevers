@@ -3,6 +3,8 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { createGrowdever } from "../store/modules/growdevers/growdeversSlice";
 
 const style = {
     position: "absolute" as "absolute",
@@ -18,13 +20,27 @@ const style = {
 interface GrowdeverFormParams {
     handleClose: () => any;
     open: boolean;
-    cpf: string;
+    // id: string;
+    // tipo: 'edicao' | 'criacao'
 }
 
 export const GrowdeverForm = (params: GrowdeverFormParams) => {
-    const handleSubmit = () => {
-        console.log(`Atualização do growdever ${params.cpf}`);
+    const dispatch: any = useDispatch();
+
+    const handleSubmit = (event: any) => {
+        event.preventDefault();
+
+        console.log(`Criação de um growdever`);
+        dispatch(
+            createGrowdever({
+                nome,
+                cpf,
+            })
+        );
     };
+
+    const [nome, setNome] = useState("");
+    const [cpf, setCpf] = useState("");
 
     return (
         <div>
@@ -35,18 +51,17 @@ export const GrowdeverForm = (params: GrowdeverFormParams) => {
                 aria-describedby="modal-modal-description"
             >
                 <Box sx={style}>
-                    <Typography
-                        id="modal-modal-title"
-                        variant="h6"
-                        component="h2"
-                    >
-                        Atualize o Growdever {params.cpf}
+                    <Typography id="modal-modal-title" variant="h6" component="h2">
+                        Crie um Growdever
                     </Typography>
-                    <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-                        Duis mollis, est non commodo luctus, nisi erat porttitor
-                        ligula.
-                    </Typography>
-                    <Button onClick={() => handleSubmit()}>Salvar</Button>
+                    <form>
+                        <label htmlFor="">Nome:</label>
+                        <input type="text" name="nome" value={nome} onChange={(event) => setNome(event.target.value)} />
+                        <br />
+                        <label htmlFor="">CPF:</label>
+                        <input type="text" name="cpf" value={cpf} onChange={(event) => setCpf(event.target.value)} />
+                        <Button onClick={(event) => handleSubmit(event)}>Salvar</Button>
+                    </form>
                 </Box>
             </Modal>
         </div>

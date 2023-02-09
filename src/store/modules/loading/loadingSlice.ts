@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const loadingSlice = createSlice({
     name: "loading",
-    initialState: true as boolean,
+    initialState: false as boolean,
     reducers: {
         toggle: (_, action) => {
             return action.payload;

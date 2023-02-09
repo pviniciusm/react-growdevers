@@ -12,29 +12,11 @@ import { Growdever } from "../models/growdever.model";
 import { GrowdeverForm } from "./GrowdevForm";
 
 export const GrowdeversList = () => {
-    const [growdevers, setGrowdevers] = useState([]);
-
-    const [modalOpen, setModalOpen] = useState(false);
-    const [modalCpf, setModalCpf] = useState<string>("");
-
-    const deleteGrowdever = (cpf: string) => {
-        console.log(cpf);
-    };
-
-    const updateGrowdever = (cpf: string) => {
-        setModalCpf(cpf);
-        setModalOpen(true);
-    };
-
-    const handleModalClose = () => setModalOpen(false);
+    const growdevers: any = useSelector<any>((state) => state.growdevers);
 
     return (
         <div>
-            <GrowdeverForm
-                open={modalOpen}
-                handleClose={handleModalClose}
-                cpf={modalCpf}
-            />
+            {/* <GrowdeverForm open={modalOpen} handleClose={handleModalClose} cpf={modalCpf} /> */}
 
             <TableContainer>
                 <Table sx={{ minWidth: 650 }} aria-label="simple table">
@@ -51,7 +33,7 @@ export const GrowdeversList = () => {
                     <TableBody>
                         {growdevers.map((row: Growdever) => (
                             <TableRow
-                                key={row.cpf}
+                                key={row.id}
                                 sx={{
                                     "&:last-child td, &:last-child th": {
                                         border: 0,
@@ -61,19 +43,11 @@ export const GrowdeversList = () => {
                                 <TableCell scope="row">{row.nome}</TableCell>
                                 <TableCell>{row.cidade}</TableCell>
                                 <TableCell>{row.cpf}</TableCell>
-                                <TableCell>{row.skills.join(", ")}</TableCell>
-                                <TableCell>
-                                    <Button
-                                        onClick={() => deleteGrowdever(row.cpf)}
-                                    >
-                                        Excluir
-                                    </Button>
-                                    <Button
-                                        onClick={() => updateGrowdever(row.cpf)}
-                                    >
-                                        Atualizar
-                                    </Button>
-                                </TableCell>
+                                <TableCell>{row.skills?.join(", ")}</TableCell>
+                                {/* <TableCell>
+                                    <Button onClick={() => deleteGrowdever(row.cpf)}>Excluir</Button>
+                                    <Button onClick={() => updateGrowdever(row.cpf)}>Atualizar</Button>
+                                </TableCell> */}
                             </TableRow>
                         ))}
                     </TableBody>
